@@ -18,13 +18,14 @@ public class Main {
 ////    AnnotationExistenceChecker annotationExistenceChecker= new AnnotationExistenceChecker();
 ////    annotationExistenceChecker.check();
 
-      Injector injector = new InjectorImpl(); //создаем имплементацию инжектора
-      injector.bind(EventDAO.class, InMemoryEventDAOImpl.class); //добавляем в инжектор реализацию интерфейса
-      Provider<EventDAO> daoProvider = injector.getProvider(EventDAO.class); //получаем инстанс класса из инжектора
+//      Injector injector = new InjectorImpl(); //создаем имплементацию инжектора
+//      injector.bind(EventDAO.class, InMemoryEventDAOImpl.class); //добавляем в инжектор реализацию интерфейса
+//      Provider<EventDAO> daoProvider = injector.getProvider(EventDAO.class); //получаем инстанс класса из инжектора
 //      assertNotNull(daoProvider);
 //      assertNotNull(daoProvider.getInstance());
 //      assertSame(InMemoryEventDAOImpl.class, daoProvider.getInstance().getClass());
-
+AnnotationScan as = new AnnotationScan();
+as.getAllClassesWithAnnotations();
 
   }
 }

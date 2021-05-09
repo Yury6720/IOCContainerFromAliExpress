@@ -5,7 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target({ElementType.CONSTRUCTOR, ElementType.})
+@Target({ElementType.CONSTRUCTOR})
 @Retention(value= RetentionPolicy.RUNTIME)
 public @interface Inject {
 }

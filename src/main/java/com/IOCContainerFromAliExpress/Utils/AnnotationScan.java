@@ -5,6 +5,7 @@ import org.reflections.Reflections;
 import org.reflections.scanners.MethodAnnotationsScanner;
 
 import java.lang.reflect.Constructor;
+import java.util.HashSet;
 import java.util.Set;
 
 public class AnnotationScan  {
@@ -13,15 +14,15 @@ public class AnnotationScan  {
 
   }
 
-  public Set<Constructor> getAllClassesWithAnnotations() {
-    //Reflections reflections = new Reflections();//(Main.class.getPackage().getName());
-    Set<Constructor> consAnnotatedWith = new Reflections("com.IOCContainerFromAliExpress",
+  public Set<Class> getAllClassesWithAnnotations() {
+    Set<Constructor> constructorsAnnotatedWith = new Reflections("com.IOCContainerFromAliExpress",
             new MethodAnnotationsScanner()).getConstructorsAnnotatedWith(Inject.class);
-//    Iterator iterator = (Iterator) reflections.getAllTypes();
-//    while (iterator.hasNext()){
-//      Object cl = iterator.next();
-//      reflections.g
-//    }
-    return consAnnotatedWith;//reflections.getConstructorsAnnotatedWith(Inject.class);
+    Set<Class> classesWithAnnotatedConstructor = new HashSet<>();
+    for (Constructor constructor: constructorsAnnotatedWith){
+      classesWithAnnotatedConstructor.add(constructor.getClass());
+      System.out.println(constructor);
+    }
+
+    return classesWithAnnotatedConstructor;
   }
 }

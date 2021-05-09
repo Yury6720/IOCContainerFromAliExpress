@@ -1,17 +1,16 @@
 package com.IOCContainerFromAliExpress.impl;
 
-import com.IOCContainerFromAliExpress.Annotations.Inject;
-import com.IOCContainerFromAliExpress.Utils.AnnotationScan;
-import com.IOCContainerFromAliExpress.Utils.ConstructorScan;
+import com.IOCContainerFromAliExpress.Utils.ClassesScanner;
 import com.IOCContainerFromAliExpress.interfaces.Injector;
 import com.IOCContainerFromAliExpress.interfaces.Provider;
 
 import java.lang.reflect.Constructor;
-import java.util.ArrayList;
+import java.lang.reflect.Parameter;
+import java.util.HashMap;
 import java.util.Set;
 
 public class InjectorImpl implements Injector {
-
+private static HashMap<String,String> hm = new HashMap();
     @Override
     public <T> Provider<T> getProvider(Class<T> type) {
         ProviderImpl provider = new ProviderImpl(type);
@@ -19,13 +18,34 @@ public class InjectorImpl implements Injector {
     }
 
     @Override
-    public <T> void bind(Class<T> intf, Class<? extends T> impl) {
-        Set<Class>classesWithAnnotatedConstructors = new AnnotationScan().getAllClassesWithAnnotations();
+    public <T> void bind() {//Class<T> intf, Class<? extends T> impl
+    System.out.println("binding start");
+    ClassesScanner classesScanner = new ClassesScanner();
+        Set<Class>classesWithAnnotatedConstructors = classesScanner.getAllClassesWithAnnotations();
 
+        for (Class cl: classesWithAnnotatedConstructors){
+      System.out.println("1 range");
+           // T [] interfaces = (T[]) cl.getInterfaces();
+//            for(T interF: interfaces){
+//        System.out.println("2 range");
+//                System.out.println("Interface in class: " + interF);
+//            }
+            Constructor[] constructors = cl.getConstructors();
+            for (Constructor constructor: constructors){
+                Parameter[] parameters = constructor.getParameters();
+                for (Parameter parameter: parameters){
+          System.out.println(parameter.getDeclaringExecutable());
+
+          System.out.println("Param: " + parameter);
+          System.out.println("Param type: " + parameter.getType() );
+          Set<Class>implementations = classesScanner.getAllImplementations(parameter.getType());
+                }
+            }
+        }
     }
 
-    @Override
-    public <T> void bindSingleton(Class<T> intf, Class<? extends T> impl) {
-
-    }
+//    @Override
+//    public <T> void bindSingleton(Class<T> intf, Class<? extends T> impl) {
+//
+//    }
 }

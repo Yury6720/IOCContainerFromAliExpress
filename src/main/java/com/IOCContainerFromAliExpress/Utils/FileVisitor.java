@@ -5,12 +5,18 @@ import java.nio.file.FileVisitResult;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.HashSet;
+import java.util.Set;
 
-public class FileVisitor extends SimpleFileVisitor {
-
+public class FileVisitor<T> extends SimpleFileVisitor {
+Set<String> filesInPresentDirectory = new HashSet<>();
     public FileVisitor() {
     super();
 }
+
+    public Set<String> getFilesInPresentDirectory() {
+        return filesInPresentDirectory;
+    }
 
     @Override
     public FileVisitResult preVisitDirectory(Object dir, BasicFileAttributes attrs) throws IOException {
@@ -28,6 +34,7 @@ public class FileVisitor extends SimpleFileVisitor {
     @Override
     public FileVisitResult visitFile(Object file, BasicFileAttributes attrs) throws IOException {
         System.out.println("Посетили файл " + file.toString());
+        filesInPresentDirectory.add(file.toString());
         return FileVisitResult.CONTINUE;
     }
 

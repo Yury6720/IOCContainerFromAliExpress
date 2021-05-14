@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 public class InjectorImpl implements Injector {
-private static HashMap<String,String> hm = new HashMap();
+private static HashMap<String,String> hm = new HashMap<>();
     @Override
     public <T> Provider<T> getProvider(Class<T> type) {
         ProviderImpl provider = new ProviderImpl(type);
@@ -20,10 +20,11 @@ private static HashMap<String,String> hm = new HashMap();
     @Override
     public <T> void bind() {//Class<T> intf, Class<? extends T> impl
     System.out.println("binding start");
-    ClassesScanner classesScanner = new ClassesScanner();
-        Set<Class>classesWithAnnotatedConstructors = classesScanner.getAllClassesWithAnnotations();
 
-        for (Class cl: classesWithAnnotatedConstructors){
+    ClassesScanner classesScanner = new ClassesScanner();
+        Set<Class<?>>classesWithAnnotatedConstructors = classesScanner.getAllClassesWithAnnotations();
+
+        for (Class<?> cl: classesWithAnnotatedConstructors){
       System.out.println("1 range");
            // T [] interfaces = (T[]) cl.getInterfaces();
 //            for(T interF: interfaces){
@@ -34,11 +35,13 @@ private static HashMap<String,String> hm = new HashMap();
             for (Constructor constructor: constructors){
                 Parameter[] parameters = constructor.getParameters();
                 for (Parameter parameter: parameters){
+
+
           System.out.println(parameter.getDeclaringExecutable());
 
           System.out.println("Param: " + parameter);
           System.out.println("Param type: " + parameter.getType() );
-          Set<Class>implementations = classesScanner.getAllImplementations(parameter.getType());
+          Set<Class<?>>implementations = classesScanner.getAllImplementations(parameter.getType());
                 }
             }
         }

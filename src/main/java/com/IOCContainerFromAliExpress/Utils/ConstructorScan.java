@@ -15,11 +15,10 @@ public class ConstructorScan {
 
     Constructor defaultConstructor = null;
     Constructor<?>[] constructors = cl.getConstructors();
-    for (Constructor constructor : constructors) {
+    for (Constructor constructor : constructors)
       if (constructor.getParameterCount() == 0) {
         defaultConstructor = constructor;
       }
-    }
     return defaultConstructor;
   }
   public Constructor<?> getAnnotateConstructor (Class<?> cl){

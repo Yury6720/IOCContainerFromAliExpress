@@ -1,6 +1,5 @@
 package com.IOCContainerFromAliExpress.Utils;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
@@ -16,7 +15,10 @@ public class PackageScan extends SimpleFileVisitor<Path> {
 
   Path testFilePath = Paths.get("./src");
 
-  // Пример строки пути для запуска в Windows
+    public PackageScan() {
+    }
+
+    // Пример строки пути для запуска в Windows
   // Path testFilePath = Paths.get(".\\Test");
   public String show() throws IOException {
     System.out.println("The file name is: " + testFilePath.getFileName());

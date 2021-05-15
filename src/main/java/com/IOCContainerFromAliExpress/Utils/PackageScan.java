@@ -1,5 +1,7 @@
 package com.IOCContainerFromAliExpress.Utils;
 
+import com.IOCContainerFromAliExpress.Scanner.NIOScanner.FileVisitor;
+
 import java.io.IOException;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;

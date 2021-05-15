@@ -1,17 +1,10 @@
 package com.IOCContainerFromAliExpress;
 
 // import com.IOCContainerFromAliExpress.Annotations.AnnotationExistenceChecker;
-import com.IOCContainerFromAliExpress.Utils.ClassesScanner;
-import com.IOCContainerFromAliExpress.Utils.FileVisitor;
-import com.IOCContainerFromAliExpress.Utils.FileWalker;
-import com.IOCContainerFromAliExpress.Utils.PackageScan;
+import com.IOCContainerFromAliExpress.Scanner.NIOScanner.FileWalker;
 import com.IOCContainerFromAliExpress.impl.InjectorImpl;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Set;
 

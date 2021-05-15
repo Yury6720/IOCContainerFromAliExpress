@@ -1,6 +1,6 @@
 package com.IOCContainerFromAliExpress.impl;
 
-import com.IOCContainerFromAliExpress.Utils.ClassesScanner;
+import com.IOCContainerFromAliExpress.Scanner.ReflectionsScanner.ClassesScanner;
 import com.IOCContainerFromAliExpress.interfaces.Injector;
 import com.IOCContainerFromAliExpress.interfaces.Provider;
 

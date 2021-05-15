@@ -1,10 +1,8 @@
-package com.IOCContainerFromAliExpress.Utils;
+package com.IOCContainerFromAliExpress.Scanner;
 
 import com.IOCContainerFromAliExpress.Annotations.Inject;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Parameter;
 
 public class ConstructorScan {
 

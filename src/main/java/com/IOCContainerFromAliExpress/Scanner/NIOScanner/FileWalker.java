@@ -25,7 +25,7 @@ import java.util.Set;
 public class FileWalker {
   private final Path path =
       Paths.get("src\\main\\java\\com\\IOCContainerFromAliExpress").toAbsolutePath();
-  Set<String> allF = new HashSet<>();
+  Set<String> allF = new HashSet<String>();
 
   public FileWalker() throws IOException {}
 

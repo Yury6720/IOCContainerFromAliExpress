@@ -36,7 +36,9 @@ public class Main {
     adf.addAll(fileWalker.walkDirectory());
     System.out.println("\n" + "new Part 3" + "\n");
     for (Object el : adf) {
-      System.out.println(el);
+      System.out.println("Element toString: " + el.toString().toUpperCase() + "\n");
+      System.out.println("Element getClass: " + el.getClass() + "\n");
+      System.out.println("Element getClass.getName: " + el.getClass().getName().toString() + "\n");
     }
 
     //    PackageScan ps = new PackageScan();

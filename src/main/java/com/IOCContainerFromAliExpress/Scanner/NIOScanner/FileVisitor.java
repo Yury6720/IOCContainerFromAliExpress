@@ -2,6 +2,8 @@ package com.IOCContainerFromAliExpress.Scanner.NIOScanner;
 
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.HashSet;
@@ -16,9 +18,15 @@ import java.util.Set;
 public class FileVisitor<T> extends SimpleFileVisitor {
 
   Set<String> filesInPresentDirectory = new HashSet<>();
+  Set<String> filesURLFromUnit = new HashSet<>();
+  Path path;
 
   public FileVisitor() {
     super();
+  }
+
+  public Set<String> getFilesURLFromUnit() {
+    return filesURLFromUnit;
   }
 
   public Set<String> getFilesInPresentDirectory() {
@@ -58,6 +66,19 @@ public class FileVisitor<T> extends SimpleFileVisitor {
   public FileVisitResult visitFile(Object file, BasicFileAttributes attrs) throws IOException {
     // Check
     System.out.println("Посетили файл " + file.toString());
+    //      URL[] clu = new URL[]{new URL("./src")};
+    //      URLClassLoader ucl = new URLClassLoader(clu);
+    //      try {
+    //          Class<?>sc =
+    // ucl.loadClass(String.valueOf(file.getClass().getResource(path.getFileName().toString())));
+    //          System.out.println("FFFFFFFFFFF: " + sc);
+    //      } catch (ClassNotFoundException e) {
+    //          e.printStackTrace();
+    //      }
+    filesURLFromUnit.add(file.getClass().getResource(path.getFileName().toString()).toString());
+    path = Paths.get(file.toString());
+    System.out.println("Имя ФАЙЛА: " + path.getFileName());
+    // filesInPresentDirectory.add(path.getFileName().toString());
     filesInPresentDirectory.add(file.toString());
     return FileVisitResult.CONTINUE;
   }

@@ -26,8 +26,17 @@ public class FileWalker {
   private final Path path =
       Paths.get("src\\main\\java\\com\\IOCContainerFromAliExpress").toAbsolutePath();
   Set<String> allF = new HashSet<String>();
+  Set <String> urlFromUnit = new HashSet<>();
 
   public FileWalker() throws IOException {}
+
+  public Set<String> getAllF() {
+    return allF;
+  }
+
+  public Set<String> getUrlFromUnit() {
+    return urlFromUnit;
+  }
 
   /**
    * @Method "walkDirectory"
@@ -52,6 +61,7 @@ public class FileWalker {
       FileVisitor fileVisitor = new FileVisitor();
       Files.walkFileTree(path, fileVisitor);
       allF.addAll(fileVisitor.getFilesInPresentDirectory());
+      urlFromUnit.addAll(fileVisitor.getFilesURLFromUnit());
 
     } catch (NoSuchFileException e) {
       e.printStackTrace();

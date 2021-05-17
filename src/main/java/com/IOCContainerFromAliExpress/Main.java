@@ -1,11 +1,14 @@
 package com.IOCContainerFromAliExpress;
 
 // import com.IOCContainerFromAliExpress.Annotations.AnnotationExistenceChecker;
+import com.IOCContainerFromAliExpress.Scanner.ClassScanner3.ClassFinder;
 import com.IOCContainerFromAliExpress.Scanner.NIOScanner.FileWalker;
 import com.IOCContainerFromAliExpress.impl.InjectorImpl;
+import javassist.bytecode.ClassFile;
 
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Main {
@@ -29,17 +32,35 @@ public class Main {
     InjectorImpl injector = new InjectorImpl();
     injector.bind();
 
-    System.out.println("\n" + "New part" + "\n");
+
 
     FileWalker fileWalker = new FileWalker();
-    Set adf = new HashSet();
+    Set <String> adf = new HashSet();
+    Set<String> urlFromUnit = new HashSet<>();
     adf.addAll(fileWalker.walkDirectory());
-    System.out.println("\n" + "new Part 3" + "\n");
-    for (Object el : adf) {
-      System.out.println("Element toString: " + el.toString().toUpperCase() + "\n");
-      System.out.println("Element getClass: " + el.getClass() + "\n");
-      System.out.println("Element getClass.getName: " + el.getClass().getName().toString() + "\n");
+    urlFromUnit.addAll(fileWalker.walkDirectory());
+//    System.out.println("\n" + "new Part 3" + "\n");
+//    Class<?> c = Class.forName("com.IOCContainerFromAliExpress.Utils.PackageScan.java");
+//    System.out.println("Element toString: " + c + "\n");
+    System.out.println("Part 4");
+
+    System.out.println("\n" + "New part" + "\n");
+    ClassFinder classFinder = new ClassFinder();
+    List<Class<?>> classes = ClassFinder.find("src/main/java/com/IOCContainerFromAliExpress");
+    for (Class clazz : classes) {
+      System.out.println("Part 4 : " + clazz);
     }
+
+/**
+ * Косяк с получением класса по имени
+ * Поменять формат стрингового отображения пути к классу
+ */
+//    for (String el : adf) {
+//      Class<?> c = Class.forName(el);
+//      System.out.println("Element toString: " + c + "\n");
+//
+//
+//    }
 
     //    PackageScan ps = new PackageScan();
     //    Path path =

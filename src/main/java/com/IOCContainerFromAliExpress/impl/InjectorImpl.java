@@ -9,11 +9,12 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Parameter;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 
 public class InjectorImpl implements Injector {
-  private static HashMap<Object, String> existingBeans = new HashMap<>();
-    ClassesScanner classesScanner = new ClassesScanner();
+  private static HashMap<String, Object> existingBeans = new HashMap<>();
+  ClassesScanner classesScanner = new ClassesScanner();
 
   @Override
   public <T> Provider<T> getProvider(Class<T> type) {
@@ -22,15 +23,33 @@ public class InjectorImpl implements Injector {
   }
 
   @Override
-  public <T> Object bind()
+  public <T> Object getBean(Class<T> type) {
+    try {
+      bind(type);
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();
+    } catch (IllegalAccessException e) {
+      e.printStackTrace();
+    } catch (InstantiationException e) {
+      e.printStackTrace();
+    } catch (NoSuchMethodException e) {
+      e.printStackTrace();
+    } catch (InvocationTargetException e) {
+      e.printStackTrace();
+    }
+    return existingBeans.get(type.getTypeName());
+  }
+
+  @Override
+  public <T> void bind(Class<T> type)
       throws ClassNotFoundException, IllegalAccessException, InstantiationException,
           NoSuchMethodException,
           InvocationTargetException { // Class<T> intf, Class<? extends T> impl
     System.out.println("binding start");
 
-
     Set<Class<?>> classesWithAnnotatedConstructors = classesScanner.getAllClassesWithAnnotations();
-Object finishedObject = null;
+    Set<Object> parametersForInjection = new HashSet<>();
+    Object finishedObject = null;
     for (Class<?> targetClass : classesWithAnnotatedConstructors) {
 
       for (Constructor constructor : targetClass.getConstructors()) {
@@ -40,36 +59,23 @@ Object finishedObject = null;
           Parameter[] paramsOfThisConstructor = constructor.getParameters();
 
           for (Parameter parameter : paramsOfThisConstructor) {
-            if (!(existingBeans.containsKey(parameter))) {
+            if (!(existingBeans.containsKey(parameter.getType().getTypeName()))) {
               for (Object implementation :
                   classesScanner.getAllImplementations(parameter.getType())) {
-                existingBeans.put(
-                    getProvider((Class) implementation).getInstance(),
-                    parameter.getType().getSimpleName());
+                parametersForInjection.add(getProvider((Class) implementation).getInstance());
                 System.out.println("existing beans : " + existingBeans);
               }
             }
           }
-          finishedObject = targetClass.getConstructor(constructor.getParameterTypes()).newInstance(paramsOfThisConstructor);
+          finishedObject =
+              targetClass
+                  .getConstructor(constructor.getParameterTypes())
+                  .newInstance(parametersForInjection.toArray());
+          existingBeans.put(finishedObject.getClass().getTypeName(), finishedObject);
+          System.out.println("ok");
         }
       }
-      //            Constructor[] constructors = cl.getConstructors();
-      //            for (Constructor constructor: constructors){
-      //                Parameter[] parameters = constructor.getParameters();
-      //                for (Parameter parameter: parameters){
-      //
-      //
-      //          System.out.println(parameter.getDeclaringExecutable());
-      //
-      //          System.out.println("Param: " + parameter);
-      //          System.out.println("Param type: " + parameter.getType() );
-      //          Set<Class<?>>implementations =
-      // classesScanner.getAllImplementations(parameter.getType());
-      //          System.out.println("impls" + implementations);
-      //                }
-      //            }
     }
-return finishedObject;
   }
 
   //    @Override

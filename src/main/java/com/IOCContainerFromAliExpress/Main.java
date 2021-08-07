@@ -31,10 +31,8 @@ public class Main {
     //    AnnotationScan as = new AnnotationScan();
     //    as.getAllClassesWithAnnotations();
     InjectorImpl injector = new InjectorImpl();
-    injector.bind();
-
-
-
+    System.out.println("Bean" + injector.getBean(Cat.class));
+    System.out.println("ok2");
 
 //    FileWalker fileWalker = new FileWalker();
 //    Set <String> adf = new HashSet();

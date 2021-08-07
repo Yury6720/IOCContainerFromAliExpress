@@ -6,13 +6,14 @@ import com.IOCContainerFromAliExpress.Scanner.NIOScanner.FileWalker;
 import com.IOCContainerFromAliExpress.impl.InjectorImpl;
 import javassist.bytecode.ClassFile;
 
+import java.io.File;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.lang.reflect.InvocationTargetException;
+import java.nio.file.Paths;
+import java.util.*;
 
 public class Main {
-  public static void main(String[] args) throws ClassNotFoundException, IOException {
+  public static void main(String[] args) throws ClassNotFoundException, IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
     //    AnnotationScan annotationScan = new AnnotationScan();
     //    Set<?> t = annotationScan.getAllClassesWithAnnotations();
     //    System.out.println(t.toString());
@@ -34,22 +35,37 @@ public class Main {
 
 
 
-    FileWalker fileWalker = new FileWalker();
-    Set <String> adf = new HashSet();
-    Set<String> urlFromUnit = new HashSet<>();
-    adf.addAll(fileWalker.walkDirectory());
-    urlFromUnit.addAll(fileWalker.walkDirectory());
+
+//    FileWalker fileWalker = new FileWalker();
+//    Set <String> adf = new HashSet();
+//    Set<String> urlFromUnit = new HashSet<>();
+//    adf.addAll(fileWalker.walkDirectory());
+    //urlFromUnit.addAll(fileWalker.walkDirectory());
 //    System.out.println("\n" + "new Part 3" + "\n");
 //    Class<?> c = Class.forName("com.IOCContainerFromAliExpress.Utils.PackageScan.java");
 //    System.out.println("Element toString: " + c + "\n");
-    System.out.println("Part 4");
 
-    System.out.println("\n" + "New part" + "\n");
-    ClassFinder classFinder = new ClassFinder();
-    List<Class<?>> classes = ClassFinder.find("src/main/java/com/IOCContainerFromAliExpress");
-    for (Class clazz : classes) {
-      System.out.println("Part 4 : " + clazz);
-    }
+
+
+//      System.out.println("Part 4");
+//    File scannedDi = new File("file:/G:/Travel Assistant/IOCContainerFromAliExpress/src/main/java/com/IOCContainerFromAliExpress");
+//    System.out.println(scannedDi.canRead());
+//
+//
+//    System.out.println(Arrays.toString(scannedDi.listFiles()));
+
+/**
+ * Проблема с получением файлов из экземпляра File.io
+ */
+//    System.out.println("\n" + "New part 5" + "\n");
+//    ClassFinder classFinder = new ClassFinder();
+//    System.out.println(ClassFinder.class.getResource("ClassFinder.class"));
+//    List<Class<?>> classes =
+//        ClassFinder.find(
+//            "com.IOCContainerFromAliExpress.Scanner");
+//    for (Class clazz : classes) {
+//      System.out.println("Part 4 : " + clazz);
+//    }
 
 /**
  * Косяк с получением класса по имени

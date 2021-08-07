@@ -7,15 +7,15 @@ import java.lang.reflect.InvocationTargetException;
 
 public class ProviderImpl implements Provider {
 Class newClass;
-  public <T> ProviderImpl(Class<T> type) {
+  public <T> ProviderImpl(Class <T> type) {
     this.newClass = type;
   }
 
   @Override
   public Object getInstance() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-    Constructor constructor = newClass.getConstructor(String.class);
+    Constructor constructor = newClass.getConstructor();
 
-    Class newObject = (Class) constructor.newInstance();
+    Object newObject =  constructor.newInstance();
     return newObject;
   }
 }

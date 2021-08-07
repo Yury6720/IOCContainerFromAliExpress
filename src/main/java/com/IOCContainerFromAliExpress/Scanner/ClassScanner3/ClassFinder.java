@@ -1,8 +1,10 @@
 package com.IOCContainerFromAliExpress.Scanner.ClassScanner3;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -14,21 +16,29 @@ public class ClassFinder {
 
   private static final char DIR_SEPARATOR = '/';
 
-  private static final String CLASS_FILE_SUFFIX = ".class";
+  private static final String CLASS_FILE_SUFFIX = ".java";
 
   private static final String BAD_PACKAGE_ERROR =
       "Unable to get resources from path '%s'. Are you sure the package '%s' exists?";
 
   /** Возвращает список классов в пакете */
-  public static List<Class<?>> find(String scannedPackage) {
+  public static List<Class<?>> find(String scannedPackage) throws IOException {
     String scannedPath = scannedPackage.replace(PKG_SEPARATOR, DIR_SEPARATOR);
-    URL scannedUrl = Thread.currentThread().getContextClassLoader().getResource(scannedPath);
+    URL scannedUrl =
+        Thread.currentThread()
+            .getContextClassLoader()
+            .getResource(
+                scannedPath);
+
     if (scannedUrl == null) {
       throw new IllegalArgumentException(
           String.format(BAD_PACKAGE_ERROR, scannedPath, scannedPackage));
     }
     File scannedDir = new File(scannedUrl.getFile());
     List<Class<?>> classes = new ArrayList<>();
+
+    System.out.println(scannedDir.setReadable(true));
+    //classes.addAll(scannedDir);
     for (File file : scannedDir.listFiles()) {
       classes.addAll(find(file, scannedPackage));
     }

@@ -50,19 +50,11 @@ public class ClassesScanner<T> {
 
     var constructorsAnnotatedWith = reflections.getConstructorsAnnotatedWith(Inject.class);
 
-    //    @Depricated
-    //    Set<Constructor> constructorsAnnotatedWith =
-    //        new Reflections("com.IOCContainerFromAliExpress", new MethodAnnotationsScanner())
-    //            .getConstructorsAnnotatedWith(Inject.class);
-
     Set<t> classesWithAnnotatedConstructor = new HashSet<>();
-
     for (var constructor : constructorsAnnotatedWith) {
       classesWithAnnotatedConstructor.add((t) constructor.getDeclaringClass());
-      // Check
       System.out.println("This Constructor " + constructor);
     }
-
     return classesWithAnnotatedConstructor;
   }
 
@@ -79,12 +71,14 @@ public class ClassesScanner<T> {
    * @return "Set<Class<? extends T>> impl" - набор классов имплементаций нужного интерфейса
    *     <p>@NB replace checking by JUnit test @NB delete checking
    */
-  public <T> Set<Class<? extends T>> getAllImplementations(Class<T> intf) {
-    Set<Class<? extends T>> impl = reflections.getSubTypesOf(intf);
+  public <T> Set<Class<? extends T>> getAllImplementations(Class<T> intf) throws ClassNotFoundException {
+
+    Set<Class<? extends T>> impls =  reflections.getSubTypesOf(intf);
     // @Check
-    for (var clazz : impl) {
-      System.out.println("Implementations of EventDAO: " + clazz);
-    }
-    return impl;
+//    for (var clazz : impls) {
+//      System.out.println("Implementations of EventDAO: " + clazz);
+//    }
+    return impls;
   }
 }
+

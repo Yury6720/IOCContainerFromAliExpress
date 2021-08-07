@@ -8,8 +8,8 @@ public class Cat {
     EventDAO eventDAO;
     String name;
     @Inject
-    public Cat(EventDAO eventDAO, String name) {
+    public Cat(EventDAO eventDAO) {
         this.eventDAO = eventDAO;
-        this.name= name;
+    System.out.println("MAY");
     }
 }

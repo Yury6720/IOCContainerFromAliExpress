@@ -75,10 +75,13 @@ public class FileVisitor<T> extends SimpleFileVisitor {
     //      } catch (ClassNotFoundException e) {
     //          e.printStackTrace();
     //      }
-    filesURLFromUnit.add(file.getClass().getResource(path.getFileName().toString()).toString());
+    //filesURLFromUnit.add(file.getClass().getResource(path.getFileName().toString()).toString());
     path = Paths.get(file.toString());
     System.out.println("Имя ФАЙЛА: " + path.getFileName());
-    // filesInPresentDirectory.add(path.getFileName().toString());
+    System.out.println("Package url: " + path.toFile().getCanonicalPath());
+    System.out.println("URL: " + path.toFile().toURL());
+    System.out.println("Test file accept: " + path.toFile().list());
+     //filesInPresentDirectory.add(path.getFileName().toString());
     filesInPresentDirectory.add(file.toString());
     return FileVisitResult.CONTINUE;
   }

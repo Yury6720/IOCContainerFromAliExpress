@@ -4,12 +4,12 @@ import com.IOCContainerFromAliExpress.Annotations.Inject;
 import com.IOCContainerFromAliExpress.interfaces.EventDAO;
 import jdk.jfr.Event;
 
-public class Cat {
+public class TargetClass {
+
     EventDAO eventDAO;
-    String name;
+
     @Inject
-    public Cat(EventDAO eventDAO) {
+    public TargetClass(EventDAO eventDAO) {
         this.eventDAO = eventDAO;
-    System.out.println("MAY");
     }
 }

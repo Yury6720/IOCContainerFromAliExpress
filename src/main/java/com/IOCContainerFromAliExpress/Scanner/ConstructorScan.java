@@ -6,9 +6,8 @@ import java.lang.reflect.Constructor;
 
 public class ConstructorScan {
 
-  public ConstructorScan() {
+  public ConstructorScan() {}
 
-  }
   public Constructor<?> getDefaultConstructor(Class<?> cl) {
 
     Constructor defaultConstructor = null;
@@ -19,12 +18,13 @@ public class ConstructorScan {
       }
     return defaultConstructor;
   }
-  public Constructor<?> getAnnotateConstructor (Class<?> cl){
+
+  public Constructor<?> getAnnotateConstructor(Class<?> cl) {
     Constructor requiredСonstructor = null;
     Constructor<?>[] constructors = cl.getConstructors();
 
-    for(Constructor<?> constructor : constructors) {
-      if(constructor.isAnnotationPresent(Inject.class)){
+    for (Constructor<?> constructor : constructors) {
+      if (constructor.isAnnotationPresent(Inject.class)) {
         requiredСonstructor = constructor;
       } else {
         ConstructorScan cs = new ConstructorScan();
@@ -33,5 +33,4 @@ public class ConstructorScan {
     }
     return requiredСonstructor;
   }
-
 }

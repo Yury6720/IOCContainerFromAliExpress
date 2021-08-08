@@ -44,8 +44,7 @@ public class InjectorImpl implements Injector {
   public <T> void bind(Class<T> type)
       throws ClassNotFoundException, IllegalAccessException, InstantiationException,
           NoSuchMethodException,
-          InvocationTargetException { // Class<T> intf, Class<? extends T> impl
-    System.out.println("binding start");
+          InvocationTargetException {
 
     Set<Class<?>> classesWithAnnotatedConstructors = classesScanner.getAllClassesWithAnnotations();
     Set<Object> parametersForInjection = new HashSet<>();
@@ -63,7 +62,6 @@ public class InjectorImpl implements Injector {
               for (Object implementation :
                   classesScanner.getAllImplementations(parameter.getType())) {
                 parametersForInjection.add(getProvider((Class) implementation).getInstance());
-                System.out.println("existing beans : " + existingBeans);
               }
             }
           }
@@ -72,14 +70,8 @@ public class InjectorImpl implements Injector {
                   .getConstructor(constructor.getParameterTypes())
                   .newInstance(parametersForInjection.toArray());
           existingBeans.put(finishedObject.getClass().getTypeName(), finishedObject);
-          System.out.println("ok");
         }
       }
     }
   }
-
-  //    @Override
-  //    public <T> void bindSingleton(Class<T> intf, Class<? extends T> impl) {
-  //
-  //    }
 }

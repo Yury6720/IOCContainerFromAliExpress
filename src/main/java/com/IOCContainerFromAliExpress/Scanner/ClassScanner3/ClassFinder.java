@@ -4,11 +4,11 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
- * <p>ClassFinder - реализация поиска классов в Контейнере (IOCContainerFromAliExpress).
+ * ClassFinder - реализация поиска классов в Контейнере (IOCContainerFromAliExpress).
+ *
  * <p>Способ №3.
  */
 public class ClassFinder {
@@ -24,11 +24,7 @@ public class ClassFinder {
   /** Возвращает список классов в пакете */
   public static List<Class<?>> find(String scannedPackage) throws IOException {
     String scannedPath = scannedPackage.replace(PKG_SEPARATOR, DIR_SEPARATOR);
-    URL scannedUrl =
-        Thread.currentThread()
-            .getContextClassLoader()
-            .getResource(
-                scannedPath);
+    URL scannedUrl = Thread.currentThread().getContextClassLoader().getResource(scannedPath);
 
     if (scannedUrl == null) {
       throw new IllegalArgumentException(
@@ -38,7 +34,7 @@ public class ClassFinder {
     List<Class<?>> classes = new ArrayList<>();
 
     System.out.println(scannedDir.setReadable(true));
-    //classes.addAll(scannedDir);
+    // classes.addAll(scannedDir);
     for (File file : scannedDir.listFiles()) {
       classes.addAll(find(file, scannedPackage));
     }

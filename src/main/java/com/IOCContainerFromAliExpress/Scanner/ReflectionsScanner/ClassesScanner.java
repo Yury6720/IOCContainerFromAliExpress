@@ -44,7 +44,7 @@ public class ClassesScanner<T> {
    * <p>сохраняем найденные классы.
    *
    * @return Set<Class>- набор классов которые будут в последствии инстанцированы
-   *     <p>@NB replace checking by JUnit test @NB delete checking
+   *
    */
   public <t> Set<t> getAllClassesWithAnnotations() {
 
@@ -69,15 +69,12 @@ public class ClassesScanner<T> {
    * <p>сохранение результатов в Set
    *
    * @return "Set<Class<? extends T>> impl" - набор классов имплементаций нужного интерфейса
-   *     <p>@NB replace checking by JUnit test @NB delete checking
+   *
    */
   public <T> Set<Class<? extends T>> getAllImplementations(Class<T> intf) throws ClassNotFoundException {
 
     Set<Class<? extends T>> impls =  reflections.getSubTypesOf(intf);
-    // @Check
-//    for (var clazz : impls) {
-//      System.out.println("Implementations of EventDAO: " + clazz);
-//    }
+
     return impls;
   }
 }
